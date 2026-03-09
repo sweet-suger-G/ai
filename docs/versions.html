@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>珠宝塔罗 · Jewelry Tarot</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:#06020F;color:#EAD8A0;font-family:'Georgia',serif;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+    .wrap{text-align:center;padding:40px 20px;}
+    .gem{font-size:4rem;display:block;animation:pulse 3s ease-in-out infinite;margin-bottom:16px;}
+    @keyframes pulse{0%,100%{filter:drop-shadow(0 0 8px #C9A84C);}50%{filter:drop-shadow(0 0 24px #F0D080);}}
+    h1{font-size:clamp(1.6rem,5vw,2.8rem);color:#F0D080;letter-spacing:0.08em;margin-bottom:6px;}
+    .sub{color:#A89060;font-size:0.85rem;letter-spacing:0.2em;margin-bottom:40px;}
+    .divider{width:200px;height:1px;margin:0 auto 40px;background:linear-gradient(90deg,transparent,#C9A84C,transparent);}
+    .cards{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+    .card{width:200px;border:1px solid rgba(201,168,76,0.4);border-radius:14px;padding:28px 20px 24px;background:linear-gradient(145deg,rgba(201,168,76,0.08),rgba(201,168,76,0.02));text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
+    .card:hover{border-color:#F0D080;background:linear-gradient(145deg,rgba(201,168,76,0.2),rgba(201,168,76,0.06));transform:translateY(-4px);box-shadow:0 8px 30px rgba(201,168,76,0.25);}
+    .card-icon{font-size:2.8rem;display:block;margin-bottom:14px;}
+    .card-title{font-size:1.1rem;color:#F0D080;display:block;margin-bottom:6px;}
+    .card-desc{font-size:0.78rem;color:#A89060;line-height:1.6;}
+    footer{color:#5A4A30;font-size:0.7rem;margin-top:32px;letter-spacing:0.1em;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="gem">💎</span>
+    <h1>珠宝塔罗</h1>
+    <p class="sub">Jewelry Tarot · 以宝石之光，观命运之道</p>
+    <div class="divider"></div>
+    <div class="cards">
+      <a class="card" href="index.html">
+        <span class="card-icon">📄</span>
+        <span class="card-title">静态版本</span>
+        <p class="card-desc">单文件·无需构建<br/>即开即用，轻量极速</p>
+      </a>
+      <a class="card" href="app/index.html">
+        <span class="card-icon">⚛️</span>
+        <span class="card-title">React 完整版</span>
+        <p class="card-desc">组件化应用<br/>含占卜历史记录</p>
+      </a>
+    </div>
+    <footer>Rider-Waite 公版塔罗牌 · 宝石对应 GemSelect · 牌义 Biddy Tarot</footer>
+  </div>
+</body>
+</html>
