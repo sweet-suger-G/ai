@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { CARDS, SPREADS, drawCards } from './data/tarotCards'
 import TarotCard from './components/TarotCard'
 import CardModal from './components/CardModal'
+import GestureCamera from './components/GestureCamera'
 
 export default function App() {
   const [spreadKey, setSpreadKey]   = useState('ring')
@@ -90,6 +91,14 @@ export default function App() {
             disabled={drawn}
           />
         </div>
+
+        {/* Gesture Camera */}
+        <GestureCamera
+          onDraw={handleDraw}
+          onReset={handleReset}
+          canDraw={!drawn}
+          drawn={drawn}
+        />
 
         {/* Draw / Reset */}
         <div className="draw-section">
