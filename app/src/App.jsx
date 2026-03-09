@@ -3,6 +3,7 @@ import { CARDS, SPREADS, drawCards } from './data/tarotCards'
 import TarotCard from './components/TarotCard'
 import CardModal from './components/CardModal'
 import GestureCamera from './components/GestureCamera'
+import { analyzeReading } from './services/openrouter'
 
 export default function App() {
   const [spreadKey, setSpreadKey]   = useState('ring')
@@ -11,6 +12,8 @@ export default function App() {
   const [intent, setIntent]         = useState('')
   const [modal, setModal]           = useState(null)  // { card, posIndex }
   const [history, setHistory]       = useState([])
+  const [aiReading, setAiReading]   = useState(null)   // null | 'loading' | string
+  const [aiError, setAiError]       = useState(null)
 
   const spread = SPREADS[spreadKey]
 
@@ -33,6 +36,25 @@ export default function App() {
     setCards([])
     setIntent('')
     setSpreadKey('ring')
+    setAiReading(null)
+    setAiError(null)
+  }
+
+  const handleAiAnalyze = async () => {
+    setAiReading('loading')
+    setAiError(null)
+    try {
+      const text = await analyzeReading({
+        spreadLabel: spread.label,
+        intent,
+        cards,
+        positions: spread.positions,
+      })
+      setAiReading(text)
+    } catch (e) {
+      setAiError(e.message)
+      setAiReading(null)
+    }
   }
 
   const openModal = useCallback((card, posIndex) => {
@@ -130,6 +152,39 @@ export default function App() {
               点击牌面查看详细解读 · Click a card to reveal its wisdom
             </p>
           </>
+        )}
+
+        {/* AI Analysis */}
+        {drawn && (
+          <section className="ai-section">
+            <div className="ai-header">
+              <h2>✦ AI 综合解读</h2>
+              <button
+                className="ai-btn"
+                onClick={handleAiAnalyze}
+                disabled={aiReading === 'loading'}
+              >
+                {aiReading === 'loading' ? '解读中…' : aiReading ? '重新解读' : '✦ 请 AI 解读'}
+              </button>
+            </div>
+            {aiReading === 'loading' && (
+              <div className="ai-loading">
+                <span className="ai-loading-dot" />
+                <span className="ai-loading-dot" />
+                <span className="ai-loading-dot" />
+                <span>正在聆听星辰的低语…</span>
+              </div>
+            )}
+            {aiError && (
+              <div className="ai-error">⚠ {aiError}</div>
+            )}
+            {aiReading && aiReading !== 'loading' && (
+              <div className="ai-result">
+                <div className="ai-divider" />
+                <p>{aiReading}</p>
+              </div>
+            )}
+          </section>
         )}
 
         {/* Reading History */}
